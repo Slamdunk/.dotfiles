@@ -11,7 +11,7 @@ if [ "$USER" == "root" ]; then
         from="$(echo -n "$file" | sed 's/:.*//g')"
         to="$(echo -n "$file" | sed 's/.*://g')"
 
-        if [ -f "$to" ] && ! [ -h "$to"]; then
+        if [ -f "$to" ] && ! [ -h "$to" ]; then
             mv "$to" "$DOTFILES_ROOT""/backup/""$(echo -n "$to" | sed 's/\//_/g')""$suffix"
         else
             rm -f "$to"
