@@ -12,7 +12,7 @@ if [ "$USER" == "root" ]; then
         to="$(echo -n "$file" | sed 's/.*://g')"
 
         if [ -f "$to" ]; then
-            mv "$to" "$DOTFILES_ROOT""/backup/""$(echo -n "$from" | sed 's/\//_/g')""$suffix"
+            mv "$to" "$DOTFILES_ROOT""/backup/""$(echo -n "$to" | sed 's/\//_/g')""$suffix"
         else
             rm -f "$to"
         fi
@@ -21,7 +21,7 @@ if [ "$USER" == "root" ]; then
     done
 
     for file in "/etc/skel/.bashrc" "/etc/skel/.profile"; do
-        mv "$file" "$DOTFILES_ROOT""/backup/""$(echo -n "$from" | sed 's/\//_/g')""$suffix"
+        mv "$file" "$DOTFILES_ROOT""/backup/""$(echo -n "$file" | sed 's/\//_/g')""$suffix"
     done
 
     exit
