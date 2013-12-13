@@ -160,9 +160,9 @@ case "$USER" in
 esac
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}${user_color}\u@\h${C_RESET}:${C_LIGHT_BLUE}\w${C_RESET}${sign} '
+    PS1="${debian_chroot:+($debian_chroot)}${user_color}\u@\h${C_RESET}:${C_LIGHT_BLUE}\w${C_RESET}${sign} "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w${sign} '
+    PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w${sign} "
 fi
 unset color_prompt force_color_prompt
 
