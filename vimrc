@@ -15,6 +15,7 @@ set ignorecase
 set incsearch
 set nobackup
 set nopaste
+set number
 set shiftwidth=4
 set showcmd
 set smartcase
