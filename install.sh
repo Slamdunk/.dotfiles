@@ -26,3 +26,11 @@ if [ "$USER" == "root" ]; then
 
     exit
 fi
+
+for file in .gitconfig .hgrc .vimrc .bashrc .profile; do
+    rm -f "$HOME""/""$file"
+done
+
+for file in gitconfig hgrc; do
+    ln -s "$DOTFILES_ROOT""/""$file" "$HOME""/.""$file"
+done
