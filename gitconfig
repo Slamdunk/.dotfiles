@@ -1,0 +1,15 @@
+[user]
+    name = "Filippo Tessarotto"
+    email = zoeslam@gmail.com
+[core]
+    editor = vim
+    whitespace = trailing-space,space-before-tab
+    pager = cat
+[alias]
+    st = status
+    co = checkout
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = auto

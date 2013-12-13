@@ -1,0 +1,9 @@
+[extensions]
+    color =
+    graphlog =
+    mq =
+    purge =
+    rebase =
+
+[alias]
+    show = log -pr
