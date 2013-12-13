@@ -21,7 +21,13 @@ if [ "$USER" == "root" ]; then
     done
 
     for file in "/etc/skel/.bashrc" "/etc/skel/.profile"; do
-        mv "$file" "$DOTFILES_ROOT""/backup/""$(echo -n "$file" | sed 's/\//_/g')""$suffix"
+        if [ -f "$file" ]; then
+            mv "$file" "$DOTFILES_ROOT""/backup/""$(echo -n "$file" | sed 's/\//_/g')""$suffix"
+        fi
+    done
+
+    for file in ".bashrc" ".profile"; do
+        rm -f "$HOME""/""$file"
     done
 
     exit
