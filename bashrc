@@ -151,7 +151,7 @@ case "$USER" in
         sign="#"
         user_color="$C_LIGHT_RED"
         ;;
-    slam)
+    slam|Slam)
         user_color="$C_LIGHT_GREEN"
         ;;
     www-data)
