@@ -55,5 +55,5 @@ for file in .gitconfig .hgrc .vimrc .bashrc .profile; do
 done
 
 for file in gitconfig hgrc; do
-    cp "$DOTFILES_ROOT""/""$file" "$HOME""/.""$file"
+    ln -s "$DOTFILES_ROOT""/""$file" "$HOME""/.""$file"
 done
