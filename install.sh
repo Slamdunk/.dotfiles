@@ -17,7 +17,7 @@ if [ "$DOTFILES_ROOT" != "/etc/.dotfiles" ]; then
             rm -f "$to"
         fi
 
-        ln -s "$DOTFILES_ROOT""/""$from" "$to"
+        cp "$DOTFILES_ROOT""/""$from" "$to"
     done
 
     exit
@@ -55,5 +55,5 @@ for file in .gitconfig .hgrc .vimrc .bashrc .profile; do
 done
 
 for file in gitconfig hgrc; do
-    ln -s "$DOTFILES_ROOT""/""$file" "$HOME""/.""$file"
+    cp "$DOTFILES_ROOT""/""$file" "$HOME""/.""$file"
 done
