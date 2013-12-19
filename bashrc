@@ -154,7 +154,7 @@ case "$USER" in
     slam|Slam)
         user_color="$C_LIGHT_GREEN"
         ;;
-    www-data)
+    code)
         user_color="$C_LIGHT_CYAN"
         ;;
 esac
