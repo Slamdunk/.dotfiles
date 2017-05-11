@@ -13,6 +13,7 @@ set backspace=indent,eol,start
 set expandtab
 set ignorecase
 set incsearch
+set laststatus=2
 set nobackup
 set nopaste
 set number
@@ -28,3 +29,5 @@ set wildmode=full
 if has("autocmd")
     filetype plugin indent on
 endif
+
+nnoremap  
