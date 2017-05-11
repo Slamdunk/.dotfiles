@@ -1,18 +1,18 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 set -ex
 
-DOTFILES_ROOT="$(readlink -f $(dirname "$0"))"
+DOTFILES_ROOT="$(readlink --canonicalize "$(dirname "$0")")"
 
 suffix=".""$(date +%y%m%d.%H%M)"".bck"
 
 if [ "$DOTFILES_ROOT" != "/etc/.dotfiles" ]; then
     for file in "bashrc:profile" "bashrc:bashrc" "vimrc:vimrc" "gitconfig:gitconfig" "hgrc:hgrc"; do
-        from="$(echo -n "$file" | sed 's/:.*//g')"
-        to="$HOME""/.""$(echo -n "$file" | sed 's/.*://g')"
+        from="$(printf "%s" "$file" | sed 's/:.*//g')"
+        to="$HOME""/.""$(printf "%s" "$file" | sed 's/.*://g')"
 
         if [ -f "$to" ] && ! [ -h "$to" ]; then
-            mv "$to" "$DOTFILES_ROOT""/backup/""$(echo -n "$to" | sed 's/\//_/g')""$suffix"
+            mv "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
         else
             rm -f "$to"
         fi
@@ -23,13 +23,13 @@ if [ "$DOTFILES_ROOT" != "/etc/.dotfiles" ]; then
     exit
 fi
 
-if [ "$USER" == "root" ]; then
+if [ "$USER" = "root" ]; then
     for file in "profile:/etc/profile" "bashrc:/etc/bash.bashrc" "vimrc:/etc/vim/vimrc.local"; do
-        from="$(echo -n "$file" | sed 's/:.*//g')"
-        to="$(echo -n "$file" | sed 's/.*://g')"
+        from="$(printf "%s" "$file" | sed 's/:.*//g')"
+        to="$(printf "%s" "$file" | sed 's/.*://g')"
 
         if [ -f "$to" ] && ! [ -h "$to" ]; then
-            mv "$to" "$DOTFILES_ROOT""/backup/""$(echo -n "$to" | sed 's/\//_/g')""$suffix"
+            mv "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
         else
             rm -f "$to"
         fi
@@ -39,7 +39,7 @@ if [ "$USER" == "root" ]; then
 
     for file in "/etc/skel/.bashrc" "/etc/skel/.profile"; do
         if [ -f "$file" ]; then
-            mv "$file" "$DOTFILES_ROOT""/backup/""$(echo -n "$file" | sed 's/\//_/g')""$suffix"
+            mv "$file" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$file" | sed 's/\//_/g')""$suffix"
         fi
     done
 
