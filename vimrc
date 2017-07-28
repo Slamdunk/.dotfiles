@@ -17,6 +17,7 @@ set laststatus=2
 set nobackup
 set nopaste
 set number
+set scrolloff=5
 set shiftwidth=4
 set showcmd
 set smartcase
