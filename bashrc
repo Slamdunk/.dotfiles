@@ -206,7 +206,6 @@ fi
 
 # some more ls aliases
 alias ll='ls -alhF'
-alias q='exit'
 
 alias rm='rm -v'
 alias mv='mv -v'
