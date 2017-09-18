@@ -7,17 +7,17 @@ DOTFILES_ROOT="$(readlink --canonicalize "$(dirname "$0")")"
 suffix=".""$(date +%y%m%d.%H%M)"".bck"
 
 if [ "$DOTFILES_ROOT" != "/etc/.dotfiles" ]; then
-    for file in "bashrc:profile" "bashrc:bashrc" "vimrc:vimrc" "gitconfig:gitconfig" "hgrc:hgrc"; do
+    for file in "bashrc:profile" "bashrc:bashrc" "vimrc:vimrc" "gitconfig:gitconfig" "hgrc:hgrc" "wgetrc:wgetrc"; do
         from="$(printf "%s" "$file" | sed 's/:.*//g')"
         to="$HOME""/.""$(printf "%s" "$file" | sed 's/.*://g')"
 
         if [ -f "$to" ] && ! [ -h "$to" ]; then
-            mv "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
+            mv --verbose "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
         else
-            rm -f "$to"
+            rm --verbose "$to"
         fi
 
-        cp "$DOTFILES_ROOT""/""$from" "$to"
+        cp --verbose "$DOTFILES_ROOT""/""$from" "$to"
     done
 
     exit
@@ -29,9 +29,9 @@ if [ "$USER" = "root" ]; then
         to="$(printf "%s" "$file" | sed 's/.*://g')"
 
         if [ -f "$to" ] && ! [ -h "$to" ]; then
-            mv "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
+            mv --verbose "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
         else
-            rm -f "$to"
+            rm --verbose "$to"
         fi
 
         ln -s "$DOTFILES_ROOT""/""$from" "$to"
@@ -39,19 +39,19 @@ if [ "$USER" = "root" ]; then
 
     for file in "/etc/skel/.bashrc" "/etc/skel/.profile"; do
         if [ -f "$file" ]; then
-            mv "$file" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$file" | sed 's/\//_/g')""$suffix"
+            mv --verbose "$file" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$file" | sed 's/\//_/g')""$suffix"
         fi
     done
 
     for file in ".bashrc" ".profile"; do
-        rm -f "$HOME""/""$file"
+        rm --verbose "$HOME""/""$file"
     done
 
     exit
 fi
 
 for file in .gitconfig .hgrc .vimrc .bashrc .profile; do
-    rm -f "$HOME""/""$file"
+    rm --verbose "$HOME""/""$file"
 done
 
 for file in gitconfig hgrc; do
