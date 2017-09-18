@@ -66,6 +66,7 @@ C_LIGHT_CYAN="\[\033[1;36m\]"
 C_LIGHT_PURPLE="\[\033[1;35m\]"
 C_LIGHT_RED="\[\033[1;31m\]"
 C_LIGHT_GREEN="\[\033[1;32m\]"
+C_YELLOW_RED_BG="\[\033[01;33;41m\]"
 C_RESET="\[\033[0m\]"
 
 sign="\$"
@@ -84,7 +85,7 @@ case "$USER" in
 esac
 
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}${user_color}\u@\h${C_RESET}:${C_LIGHT_BLUE}\w${C_RESET}${sign} "
+    PS1="${debian_chroot:+($debian_chroot)}\`if [ \$? = 0 ]; then echo \"${user_color}\"; else echo \"${C_YELLOW_RED_BG}\"; fi\`\u@\h${C_RESET}:${C_LIGHT_BLUE}\w${C_RESET}${sign} "
 else
     PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w${sign} "
 fi
