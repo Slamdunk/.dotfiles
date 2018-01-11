@@ -16,3 +16,5 @@
     ui = auto
 [push]
     default = simple
+[tag]
+    sort = version:refname
