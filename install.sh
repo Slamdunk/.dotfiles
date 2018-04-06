@@ -14,7 +14,7 @@ if [ "$DOTFILES_ROOT" != "/etc/.dotfiles" ]; then
         if [ -f "$to" ] && ! [ -h "$to" ]; then
             mv --verbose "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
         else
-            rm --verbose "$to"
+            rm --force --verbose "$to"
         fi
 
         cp --verbose "$DOTFILES_ROOT""/""$from" "$to"
@@ -31,7 +31,7 @@ if [ "$USER" = "root" ]; then
         if [ -f "$to" ] && ! [ -h "$to" ]; then
             mv --verbose "$to" "$DOTFILES_ROOT""/backup/""$(printf "%s" "$to" | sed 's/\//_/g')""$suffix"
         else
-            rm --verbose "$to"
+            rm --force --verbose "$to"
         fi
 
         ln -s "$DOTFILES_ROOT""/""$from" "$to"
@@ -44,14 +44,14 @@ if [ "$USER" = "root" ]; then
     done
 
     for file in ".bashrc" ".profile"; do
-        rm --verbose "$HOME""/""$file"
+        rm --force --verbose "$HOME""/""$file"
     done
 
     exit
 fi
 
 for file in .gitconfig .hgrc .vimrc .bashrc .profile; do
-    rm --verbose "$HOME""/""$file"
+    rm --force --verbose "$HOME""/""$file"
 done
 
 for file in gitconfig hgrc; do
