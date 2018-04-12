@@ -18,3 +18,5 @@
     default = simple
 [tag]
     sort = version:refname
+[fetch]
+    prune = true
