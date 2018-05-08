@@ -133,7 +133,7 @@ fi
 # some more ls aliases
 alias ll='ls -alhF'
 
-alias rm='rm -v'
+alias rm='rm -vI'
 alias mv='mv -v'
 alias cp='cp -v'
 
