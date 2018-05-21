@@ -7,7 +7,7 @@ DOTFILES_ROOT="$(readlink --canonicalize "$(dirname "$0")")"
 suffix=".""$(date +%y%m%d.%H%M)"".bck"
 
 if [ "$DOTFILES_ROOT" != "/etc/.dotfiles" ]; then
-    for file in "bashrc:profile" "bashrc:bashrc" "vimrc:vimrc" "gitconfig:gitconfig" "hgrc:hgrc" "wgetrc:wgetrc"; do
+    for file in "bashrc:profile" "bashrc:bashrc" "vimrc:vimrc" "gitconfig:gitconfig" "wgetrc:wgetrc"; do
         from="$(printf "%s" "$file" | sed 's/:.*//g')"
         to="$HOME""/.""$(printf "%s" "$file" | sed 's/.*://g')"
 
