@@ -16,6 +16,7 @@ set incsearch
 set laststatus=2
 set nobackup
 set nopaste
+set noundofile
 set number
 set scrolloff=5
 set shiftwidth=4
