@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -11,8 +13,8 @@ HISTTIMEFORMAT='%F %T   '
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=100000
-HISTFILESIZE=2000000
+HISTSIZE=500000
+HISTFILESIZE=10000000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -51,23 +53,23 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-C_RED="\[\033[0;31m\]"
-C_GREEN="\[\033[0;32m\]"
-C_BROWN="\[\033[0;33m\]"
-C_BLUE="\[\033[0;34m\]"
-C_PURPLE="\[\033[0;35m\]"
-C_CYAN="\[\033[0;36m\] "
-C_GRAY="\[\033[1;30m\]"
-C_WHITE="\[\033[1;37m\]"
-C_YELLOW="\[\033[1;33m\]"
-C_LIGHT_GRAY="\[\033[0;37m\]"
-C_LIGHT_BLUE="\[\033[1;34m\]"
-C_LIGHT_CYAN="\[\033[1;36m\]"
-C_LIGHT_PURPLE="\[\033[1;35m\]"
-C_LIGHT_RED="\[\033[1;31m\]"
-C_LIGHT_GREEN="\[\033[1;32m\]"
-C_YELLOW_RED_BG="\[\033[01;33;41m\]"
-C_RESET="\[\033[0m\]"
+C_RED="\\[\\033[0;31m\\]"
+C_GREEN="\\[\\033[0;32m\\]"
+C_BROWN="\\[\\033[0;33m\\]"
+C_BLUE="\\[\\033[0;34m\\]"
+C_PURPLE="\\[\\033[0;35m\\]"
+C_CYAN="\\[\\033[0;36m\\] "
+C_GRAY="\\[\\033[1;30m\\]"
+C_WHITE="\\[\\033[1;37m\\]"
+C_YELLOW="\\[\\033[1;33m\\]"
+C_LIGHT_GRAY="\\[\\033[0;37m\\]"
+C_LIGHT_BLUE="\\[\\033[1;34m\\]"
+C_LIGHT_CYAN="\\[\\033[1;36m\\]"
+C_LIGHT_PURPLE="\\[\\033[1;35m\\]"
+C_LIGHT_RED="\\[\\033[1;31m\\]"
+C_LIGHT_GREEN="\\[\\033[1;32m\\]"
+C_YELLOW_RED_BG="\\[\\033[01;33;41m\\]"
+C_RESET="\\[\\033[0m\\]"
 
 sign="\$"
 user_color="$C_YELLOW"
@@ -76,7 +78,7 @@ case "$USER" in
         sign="#"
         user_color="$C_LIGHT_RED"
         ;;
-    slam|Slam)
+    slam|tessarotto)
         user_color="$C_LIGHT_GREEN"
         ;;
     code)
@@ -85,16 +87,16 @@ case "$USER" in
 esac
 
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}\`if [ \$? = 0 ]; then echo \"${user_color}\"; else echo \"${C_YELLOW_RED_BG}\"; fi\`\u@\h${C_RESET}:${C_LIGHT_BLUE}\w${C_RESET}${sign} "
+    PS1="${debian_chroot:+($debian_chroot)}\`if [ \$? = 0 ]; then echo \"${user_color}\"; else echo \"${C_YELLOW_RED_BG}\"; fi\`\\u@\\h${C_RESET}:${C_LIGHT_BLUE}\\w${C_RESET}${sign} "
 else
-    PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w${sign} "
+    PS1="${debian_chroot:+($debian_chroot)}\\u@\\h:\\w${sign} "
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 cygwin*|xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
     ;;
 *)
     ;;
@@ -113,22 +115,17 @@ fi
 
 export EDITOR=vim
 
-GREP_OPTIONS=""
-for PATTERN in ".cvs" ".git" ".hg" ".svn" ".work"; do
-    GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=$PATTERN"
-done
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    eval "$(dircolors --sh)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto '"$GREP_OPTIONS"
+    alias grep="grep --color=auto"
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+alias grep="grep --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn --exclude-dir=.work"
 
 # some more ls aliases
 alias ll='ls -alhF'
@@ -139,8 +136,6 @@ alias cp='cp -v'
 
 alias gzip='gzip -v'
 alias gunzip='gunzip -v'
-
-alias vi='vim'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
