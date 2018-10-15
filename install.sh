@@ -8,4 +8,5 @@ rsync \
     --exclude ".git/" \
     --exclude "install.sh" \
     --exclude "LICENSE" \
+    --exclude "README.md" \
     -avh --no-perms "${thisDir:?}"/. ~
