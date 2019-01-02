@@ -156,3 +156,7 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
+
+if [ -f ~/.config/fzf/fzf.bash ]; then
+    . ~/.config/fzf/fzf.bash
+fi
