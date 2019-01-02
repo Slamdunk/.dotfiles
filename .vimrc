@@ -45,7 +45,7 @@ call plug#begin('~/.vim/plugged')
 
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
+    elseif v:version >= 800
         Plug 'Shougo/deoplete.nvim'
         Plug 'roxma/nvim-yarp'
         Plug 'roxma/vim-hug-neovim-rpc'
