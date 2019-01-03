@@ -1,5 +1,6 @@
 set nocompatible
 
+" Auto install VIM-PLUG if not present
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -7,23 +8,29 @@ endif
 
 call plug#begin('~/.vim/plugged')
     " https://vimawesome.com/plugin/fzf-vim
+    " How did I live without FZF before?
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --xdg --no-update-rc' }
     Plug 'junegunn/fzf.vim'
 
     " https://vimawesome.com/plugin/lightline-vim
+    " Airline has better buffer management, and doesn't seem slow atm
     "Plug 'itchyny/lightline.vim'
     " https://vimawesome.com/plugin/vim-airline-superman
     Plug 'vim-airline/vim-airline'
 
     " https://vimawesome.com/plugin/vim-gitbranch
+    " gitbranch only useful on lightline
     "Plug 'itchyny/vim-gitbranch'
     " https://vimawesome.com/plugin/fugitive-vim
+    " Best integration with airline
     Plug 'tpope/vim-fugitive'
 
     " https://vimawesome.com/plugin/vim-fubitive
+    " Add Bitbucket URL support to fugitive.vim's :Gbrowse command
     Plug 'tommcdo/vim-fubitive'
 
     " https://vimawesome.com/plugin/vim-rhubarb
+    " rhubarb.vim: GitHub extension for fugitive.vim
     Plug 'tpope/vim-rhubarb'
 
     " https://vimawesome.com/plugin/nerdtree-red
@@ -33,6 +40,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tomtom/tcomment_vim'
 
     " https://vimawesome.com/plugin/vim-gutentags
+    " Best CTAGS for php, but with PHPCD and PHPActor no needs for them as of yet
     "Plug 'ludovicchabant/vim-gutentags'
 
     if v:version >= 800 || has('nvim')
@@ -41,8 +49,10 @@ call plug#begin('~/.vim/plugged')
     endif
 
     " https://vimawesome.com/plugin/phpcd-vim-the-thing-itself
-    Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer.phar install' }
+    Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer.phar install --no-dev --classmap-authoritative' }
 
+    " https://vimawesome.com/plugin/deoplete-nvim
+    " Auto loaded async completion
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     elseif v:version >= 800
@@ -50,6 +60,12 @@ call plug#begin('~/.vim/plugged')
         Plug 'roxma/nvim-yarp'
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
+
+    " https://vimawesome.com/plugin/phpactor
+    Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer.phar install --no-dev --classmap-authoritative'}
+    " PHPActor on Deoplete seems slow af and not as reliable as PHPCD
+    " But still it's good for refactoring
+    "Plug 'kristijanhusak/deoplete-phpactor'
 call plug#end()
 
 " let g:lightline = {
@@ -60,10 +76,9 @@ call plug#end()
 "     \     'gitbranch': 'gitbranch#name'
 "     \   },
 "     \ }
+
 set hidden
 let g:airline#extensions#tabline#enabled = 1
-
-syntax on
 
 map <C-n> :NERDTreeToggle<CR>
 
@@ -109,6 +124,14 @@ function! s:check_back_space() abort
 endfunction
 " }}}
 
+" Include use statement
+nmap <Leader>u  :call phpactor#UseAdd()<CR>
+" Invoke the context menu
+nmap <Leader>mm :call phpactor#ContextMenu()<CR>
+" Invoke the navigation menu
+nmap <Leader>nn :call phpactor#Navigate()<CR>
+
+map <Leader>w       :bdelete<CR>
 map <Leader><Right> :bnext<CR>
 map <Leader><Left>  :bprevious<CR>
 
@@ -126,26 +149,34 @@ if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-set autoindent
+" Appearance
 set background=dark
-set backspace=indent,eol,start
-set expandtab
-set ignorecase
-set incsearch
+syntax on
+set number
+set scrolloff=5
 set laststatus=2
+set showcmd
+set wildmenu
+set wildmode=full
+
+" VIM behaviour
+set backspace=indent,eol,start
 set nobackup
 set nopaste
 set noundofile
-set number
-set scrolloff=5
-set shiftwidth=4
-set showcmd
+
+" Search behaviour
+set ignorecase
 set smartcase
+set incsearch
+
+" Indent behaviour
+set autoindent
 set smartindent
+set expandtab
+set shiftwidth=4
 set softtabstop=4
 set tabstop=4
-set wildmenu
-set wildmode=full
 
 if has("autocmd")
     filetype plugin indent on
