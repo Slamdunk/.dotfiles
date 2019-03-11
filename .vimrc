@@ -31,7 +31,7 @@ call plug#begin('~/.vim/plugged')
 
     " https://vimawesome.com/plugin/vim-rhubarb
     " rhubarb.vim: GitHub extension for fugitive.vim
-    Plug 'tpope/vim-rhubarb'
+    "Plug 'tpope/vim-rhubarb'
 
     " https://vimawesome.com/plugin/nerdtree-red
     Plug 'scrooloose/nerdtree'
@@ -48,24 +48,24 @@ call plug#begin('~/.vim/plugged')
         Plug 'w0rp/ale'
     endif
 
-    " https://vimawesome.com/plugin/phpcd-vim-the-thing-itself
-    Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer.phar install --no-dev --classmap-authoritative' }
-
-    " https://vimawesome.com/plugin/deoplete-nvim
-    " Auto loaded async completion
-    if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    elseif v:version >= 800
-        Plug 'Shougo/deoplete.nvim'
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
-    endif
-
-    " https://vimawesome.com/plugin/phpactor
-    Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer.phar install --no-dev --classmap-authoritative'}
-    " PHPActor on Deoplete seems slow af and not as reliable as PHPCD
-    " But still it's good for refactoring
-    "Plug 'kristijanhusak/deoplete-phpactor'
+"    " https://vimawesome.com/plugin/phpcd-vim-the-thing-itself
+"    Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer.phar install --no-dev --classmap-authoritative' }
+"
+"    " https://vimawesome.com/plugin/deoplete-nvim
+"    " Auto loaded async completion
+"    if has('nvim')
+"        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"    elseif v:version >= 800
+"        Plug 'Shougo/deoplete.nvim'
+"        Plug 'roxma/nvim-yarp'
+"        Plug 'roxma/vim-hug-neovim-rpc'
+"    endif
+"
+"    " https://vimawesome.com/plugin/phpactor
+"    Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer.phar install --no-dev --classmap-authoritative'}
+"    " PHPActor on Deoplete seems slow af and not as reliable as PHPCD
+"    " But still it's good for refactoring
+"    "Plug 'kristijanhusak/deoplete-phpactor'
 call plug#end()
 
 " let g:lightline = {
@@ -81,6 +81,8 @@ set hidden
 let g:airline#extensions#tabline#enabled = 1
 
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
 
 " Too many mapping from default TComment plugin
 let g:tcomment_maps = 0
@@ -105,32 +107,34 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 
 " Deoplete " {{{
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+"let g:deoplete#ignore_sources.php = ['omni']
+"let g:deoplete#enable_at_startup = 1
 
 " Use TAB/S-TAB for Deoplete autocomplete
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-inoremap <silent><expr> <S-TAB>
-    \ pumvisible() ? "\<C-p>" :
-    \ <SID>check_back_space() ? "\<S-TAB>" :
-    \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+"inoremap <silent><expr> <TAB>
+"    \ pumvisible() ? "\<C-n>" :
+"    \ <SID>check_back_space() ? "\<TAB>" :
+"    \ deoplete#mappings#manual_complete()
+"inoremap <silent><expr> <S-TAB>
+"    \ pumvisible() ? "\<C-p>" :
+"    \ <SID>check_back_space() ? "\<S-TAB>" :
+"    \ deoplete#mappings#manual_complete()
+"function! s:check_back_space() abort
+"    let col = col('.') - 1
+"    return !col || getline('.')[col - 1]  =~ '\s'
+"endfunction
 " }}}
 
+" PHPActor
 " Include use statement
-nmap <Leader>u  :call phpactor#UseAdd()<CR>
+"nmap <Leader>u  :call phpactor#UseAdd()<CR>
 " Invoke the context menu
-nmap <Leader>mm :call phpactor#ContextMenu()<CR>
+"nmap <Leader>mm :call phpactor#ContextMenu()<CR>
 " Invoke the navigation menu
-nmap <Leader>nn :call phpactor#Navigate()<CR>
+"nmap <Leader>nn :call phpactor#Navigate()<CR>
 
+" Browsing buffers quickly
 map <Leader>w       :bdelete<CR>
 map <Leader><Right> :bnext<CR>
 map <Leader><Left>  :bprevious<CR>
