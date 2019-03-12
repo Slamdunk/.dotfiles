@@ -27,7 +27,7 @@ call plug#begin('~/.vim/plugged')
 
     " https://vimawesome.com/plugin/vim-fubitive
     " Add Bitbucket URL support to fugitive.vim's :Gbrowse command
-    Plug 'tommcdo/vim-fubitive'
+    "Plug 'tommcdo/vim-fubitive'
 
     " https://vimawesome.com/plugin/vim-rhubarb
     " rhubarb.vim: GitHub extension for fugitive.vim
@@ -43,11 +43,11 @@ call plug#begin('~/.vim/plugged')
     " Best CTAGS for php, but with PHPCD and PHPActor no needs for them as of yet
     "Plug 'ludovicchabant/vim-gutentags'
 
-    if v:version >= 800 || has('nvim')
-        " https://vimawesome.com/plugin/ale
-        Plug 'w0rp/ale'
-    endif
-
+"    if v:version >= 800 || has('nvim')
+"        " https://vimawesome.com/plugin/ale
+"        Plug 'w0rp/ale'
+"    endif
+"
 "    " https://vimawesome.com/plugin/phpcd-vim-the-thing-itself
 "    Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer.phar install --no-dev --classmap-authoritative' }
 "
@@ -99,13 +99,13 @@ xmap gc <Plug>TComment_gc
 "                            \ '*/cache/*', '*/log*',
 "                            \ '*/tmp/*']
 "let g:gutentags_project_root = ['composer.json']
-
-let g:ale_linters = {
-    \   'php': ['php'],
-    \}
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
-
+"
+"let g:ale_linters = {
+"    \   'php': ['php'],
+"    \}
+"let g:ale_lint_on_save = 1
+"let g:ale_lint_on_text_changed = 0
+"
 " Deoplete " {{{
 "let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 "let g:deoplete#ignore_sources.php = ['omni']
