@@ -86,8 +86,13 @@ case "$USER" in
         ;;
 esac
 
+GIT_PS1_SHOWDIRTYSTATE='y'
+GIT_PS1_SHOWSTASHSTATE='y'
+GIT_PS1_SHOWUNTRACKEDFILES='y'
+GIT_PS1_SHOWUPSTREAM='auto'
+
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}\`if [ \$? = 0 ]; then echo \"${user_color}\"; else echo \"${C_YELLOW_RED_BG}\"; fi\`\\u@\\h${C_RESET}:${C_LIGHT_BLUE}\\w${C_RESET}${sign} "
+    PS1="${debian_chroot:+($debian_chroot)}\`if [ \$? = 0 ]; then echo \"${user_color}\"; else echo \"${C_YELLOW_RED_BG}\"; fi\`\\u@\\h${C_RESET}:${C_LIGHT_BLUE}\\w${C_YELLOW}"'$(__git_ps1 2> /dev/null)'"${C_RESET}${sign} "
 else
     PS1="${debian_chroot:+($debian_chroot)}\\u@\\h:\\w${sign} "
 fi
