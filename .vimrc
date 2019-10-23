@@ -24,6 +24,9 @@ call plug#begin('~/.vim/plugged')
     " https://vimawesome.com/plugin/fugitive-vim
     " Best integration with airline
     Plug 'tpope/vim-fugitive'
+    " https://vimawesome.com/plugin/vim-gitgutter
+    " Git +-~ symbols within files
+    Plug 'airblade/vim-gitgutter'
 
     " https://vimawesome.com/plugin/vim-fubitive
     " Add Bitbucket URL support to fugitive.vim's :Gbrowse command
