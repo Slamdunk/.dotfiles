@@ -14,12 +14,13 @@ for file in \
     if [ -f "$destination" ]; then
         diffOutput=$(diff "$destination" "$newfile")
         [ $? = 1 ] || continue
-        echo "$diffOutput"
-
-		read -p "Update [""$file""] ? " -n 1 -r < /dev/tty
-		echo
-		[[ "$REPLY" =~ ^[Yy]$ ]] || continue
+        if [ "$1" != "--non-interactive" ]; then
+            echo "$diffOutput"
+            read -p "Update [""$file""] ? " -n 1 -r < /dev/tty
+            echo
+            [[ "$REPLY" =~ ^[Yy]$ ]] || continue
+        fi
     fi
 
-	cp -av "$newfile" "$destination"
+    cp -av "$newfile" "$destination"
 done
