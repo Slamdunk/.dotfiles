@@ -168,3 +168,9 @@ fi
 if [ -f ~/.config/fzf/fzf.bash ]; then
     . ~/.config/fzf/fzf.bash
 fi
+
+genpasswd() {
+    local l=$1
+    [ "$l" == "" ] && l=32
+    tr -dc ABCDEFGHKMNPQRSTUVWXYZabcdefghkmnpqrstuvwxyz23456789_ < /dev/urandom | head -c ${l} | xargs
+}
