@@ -100,11 +100,14 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-cygwin*|xterm*|rxvt*)
-    PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
-    ;;
+linux|xterm*|rxvt*)
+  export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%%.*}:${PWD##*/}\007"'
+  ;;
+screen*)
+  export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}:${PWD##*/}\033\\" '
+  ;;
 *)
-    ;;
+  ;;
 esac
 
 # set PATH so it includes user's private bin if it exists
