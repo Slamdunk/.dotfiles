@@ -171,6 +171,10 @@ fi
 
 if [ -f ~/.config/fzf/fzf.bash ]; then
     . ~/.config/fzf/fzf.bash
+
+    if [ -x /usr/bin/rg ]; then
+        export FZF_CTRL_T_COMMAND="/usr/bin/rg --files"
+    fi;
 fi
 
 genpasswd() {
