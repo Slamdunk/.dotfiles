@@ -35,8 +35,8 @@ cat <<'EOF' | sudo tee /etc/sudoers.d/umask
 Defaults umask_override
 Defaults umask=0022
 EOF
-sudo chmod 0440 /etc/sudoers.d/umask
-reboot
+sudo chmod 0440 /etc/sudoers.d/umask \
+&& reboot
 ```
 
 ## Software di base
@@ -74,6 +74,7 @@ uno spazio, per compatibilità con i nostri standard e tutti gli altri editor.
 
 ## PHP out-docker
 
+```
 sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
 && sudo apt install \
@@ -84,3 +85,4 @@ sudo add-apt-repository ppa:ondrej/php \
 && wget -O ~/bin/phive "https://phar.io/releases/phive.phar" \
 && chmod +x ~/bin/phive \
 && ~/bin/phive install --target /home/tessarotto/bin --trust-gpg-keys C00543248C87FB13,D2CCAC42F6295E7D,F4D32E2C9343B2AE composer-normalize composer-require-checker composer-unused
+```
