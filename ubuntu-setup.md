@@ -47,7 +47,7 @@ sudo apt update \
     vim \
     git \
     curl \
-    tmux \
+    tmux xclip \
     ripgrep \
     geany geany-plugin-lineoperations geany-plugin-prettyprinter geany-plugin-addons \
     filezilla \
