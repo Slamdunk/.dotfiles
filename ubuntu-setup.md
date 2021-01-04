@@ -31,6 +31,7 @@ sed -i 's/#umask.\+/umask 0027/' ~/.profile
 Tuttavia va ripristinato lo umask 0022 per il sudo:
 
 ```
+echo "vm.swappiness = 10" | sudo tee --append /etc/sysctl.conf
 cat <<'EOF' | sudo tee /etc/sudoers.d/umask
 Defaults umask_override
 Defaults umask=0022
