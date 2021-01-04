@@ -18,6 +18,13 @@ sudo ufw enable
 sudo ufw allow 9003/tcp
 ```
 
+## Sysctl
+
+```
+echo "vm.swappiness = 10" | sudo tee --append /etc/sysctl.conf
+echo "fs.inotify.max_user_watches = 524288" | sudo tee --append /etc/sysctl.conf
+```
+
 ## Sicurezza
 
 Per sicurezza, rimuovere i permessi altrui dalla propria home:
@@ -31,7 +38,6 @@ sed -i 's/#umask.\+/umask 0027/' ~/.profile
 Tuttavia va ripristinato lo umask 0022 per il sudo:
 
 ```
-echo "vm.swappiness = 10" | sudo tee --append /etc/sysctl.conf
 cat <<'EOF' | sudo tee /etc/sudoers.d/umask
 Defaults umask_override
 Defaults umask=0022
