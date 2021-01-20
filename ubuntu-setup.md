@@ -64,9 +64,22 @@ sudo apt update \
     ncdu \
     network-manager-openvpn-gnome \
     gocryptfs \
+    gnupg2 gnupg-agent pinentry-curses scdaemon pcscd \
 && sudo usermod -aG docker $USER \
 && snap install phpstorm --classic \
 && reboot
+```
+
+## Yubikey
+
+Impostazioni GNUPG:
+
+```
+mkdir --parents --verbose ~/.gnupg \
+    && wget -O ~/.gnupg/gpg.conf https://raw.githubusercontent.com/drduh/config/master/gpg.conf \
+    && wget -O ~/.gnupg/gpg-agent.conf https://raw.githubusercontent.com/drduh/config/master/gpg-agent.conf \
+    && sudo sed -i 's/^use-ssh-agent/no-use-ssh-agent/' /etc/X11/Xsession.options \
+    && xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool -s false
 ```
 
 ## Geany settings

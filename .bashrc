@@ -7,6 +7,19 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
     exec tmux new -ADs def && exit
 fi
 
+if [ "$USER" == "root" ]; then
+    umask 0022
+else
+    umask 0027
+fi
+
+if [ "${XDG_RUNTIME_DIR}" != "" ]; then
+    export GPG_TTY="$(tty)"
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    gpgconf --launch gpg-agent
+    gpg-connect-agent updatestartuptty /bye > /dev/null
+fi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -117,12 +130,6 @@ esac
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
-fi
-
-if [ "$USER" == "root" ]; then
-    umask 0022
-else
-    umask 0027
 fi
 
 export EDITOR=vim
