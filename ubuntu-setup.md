@@ -91,5 +91,5 @@ sudo add-apt-repository ppa:ondrej/php \
 && mv ~/bin/composer{.phar,} \
 && wget -O ~/bin/phive "https://phar.io/releases/phive.phar" \
 && chmod +x ~/bin/phive \
-&& ~/bin/phive install --target /home/tessarotto/bin --trust-gpg-keys C00543248C87FB13,D2CCAC42F6295E7D,F4D32E2C9343B2AE composer-normalize composer-require-checker composer-unused
+&& ~/bin/phive install --target $HOME/bin --trust-gpg-keys C00543248C87FB13,D2CCAC42F6295E7D,F4D32E2C9343B2AE composer-normalize composer-require-checker composer-unused
 ```
