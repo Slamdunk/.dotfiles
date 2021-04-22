@@ -13,7 +13,7 @@ else
     umask 0027
 fi
 
-if [ "${XDG_RUNTIME_DIR}" != "" ]; then
+if [ "${XDG_CURRENT_DESKTOP}" != "" ]; then
     export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
