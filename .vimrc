@@ -45,6 +45,9 @@ call plug#begin('~/.vim/plugged')
     " https://vimawesome.com/plugin/vim-gutentags
     " Best CTAGS for php, but with PHPCD and PHPActor no needs for them as of yet
     "Plug 'ludovicchabant/vim-gutentags'
+    
+    " https://vimawesome.com/plugin/vim-dirdiff
+    Plug 'will133/vim-dirdiff'
 
 "    if v:version >= 800 || has('nvim')
 "        " https://vimawesome.com/plugin/ale
