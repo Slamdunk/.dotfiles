@@ -5,6 +5,7 @@ thisDir=$(readlink --canonicalize "$(dirname "$0")")
 for file in \
     ".bashrc" \
     ".gitconfig" \
+    ".gitignore" \
     ".tmux.conf" \
     ".vimrc" \
     ".wgetrc" \
