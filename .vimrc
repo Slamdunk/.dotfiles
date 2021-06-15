@@ -34,8 +34,31 @@ call plug#begin('~/.vim/plugged')
     if executable('composer')
         " https://vimawesome.com/plugin/phpactor
         Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev --prefer-dist --classmap-authoritative'}
+
+        Plug 'dantleech/vim-phpnamespace'
+        Plug 'dense-analysis/ale'
     endif
 call plug#end()
+
+set omnifunc=syntaxcomplete#Complete
+if executable('composer')
+    autocmd FileType php setlocal omnifunc=phpactor#Complete
+    set completeopt=noinsert,menuone,noselect
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    let g:ale_php_phpcbf_executable = 'vendor/bin/phpcbf'
+    let g:ale_php_phpcs_executable = 'vendor/bin/phpcs'
+    let g:ale_php_phpstan_executable = 'vendor/bin/phpstan'
+    let g:ale_php_psalm_executable = ' vendor/bin/psalm'
+    let g:ale_php_cs_fixer_executable = 'vendor/bin/php-cs-fixer'
+    let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'php': ['php_cs_fixer', 'phpcbf'],
+    \}
+    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+    nmap <silent> <C-j> <Plug>(ale_next_wrap)
+endif
 
 set hidden
 let g:airline#extensions#tabline#enabled = 1
@@ -65,6 +88,10 @@ map <Leader>w       :bdelete<CR>
 map <Leader><Right> :bnext<CR>
 map <Leader><Left>  :bprevious<CR>
 
+" indent without killing the selection in VISUAL mode
+vmap < <gv
+vmap > >gv
+
 function! s:DiffWithSaved()
   let filetype=&ft
   diffthis
@@ -87,13 +114,16 @@ set scrolloff=5
 set laststatus=2
 set showcmd
 set wildmenu
-set wildmode=full
+set wildmode=longest:full
 
+if !isdirectory($HOME.'/.vim/undo')
+    call mkdir($HOME.'/.vim/undo')
+endif
 " VIM behaviour
 set backspace=indent,eol,start
-set nobackup
 set nopaste
-set noundofile
+set undofile
+set undodir=~/.vim/undo
 
 " Search behaviour
 set ignorecase
@@ -107,6 +137,7 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
+set shiftround
 
 if has("autocmd")
     filetype plugin indent on
