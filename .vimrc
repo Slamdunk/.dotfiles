@@ -34,17 +34,33 @@ call plug#begin('~/.vim/plugged')
     if executable('composer')
         " https://vimawesome.com/plugin/phpactor
         Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev --prefer-dist --classmap-authoritative'}
+        Plug 'slamdunk/vim-php-static-analysis'
 
         Plug 'dantleech/vim-phpnamespace'
         Plug 'dense-analysis/ale'
+
+        Plug 'vim-test/vim-test'
+        Plug 'tpope/vim-dispatch'
+        Plug 'slamdunk/vim-compiler-phpunit'
     endif
 call plug#end()
+
+let test#strategy = "dispatch"
 
 set omnifunc=syntaxcomplete#Complete
 if executable('composer')
     autocmd FileType php setlocal omnifunc=phpactor#Complete
     set completeopt=noinsert,menuone,noselect
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    function! CleverTab()
+        if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+            return "\<Tab>"
+        elseif pumvisible()
+            return "\<C-n>"
+        else
+            return "\<C-X>\<C-O>"
+        endif
+    endfunction
+    inoremap <Tab> <C-R>=CleverTab()<CR>
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
     let g:ale_php_phpcbf_executable = 'vendor/bin/phpcbf'
