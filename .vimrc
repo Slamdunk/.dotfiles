@@ -12,36 +12,31 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --xdg --no-update-rc' }
     Plug 'junegunn/fzf.vim'
 
-    " https://vimawesome.com/plugin/vim-airline-superman
     Plug 'vim-airline/vim-airline'
 
-    " https://vimawesome.com/plugin/fugitive-vim
     " Best integration with airline
     Plug 'tpope/vim-fugitive'
-    " https://vimawesome.com/plugin/vim-gitgutter
     " Git +-~ symbols within files
     Plug 'airblade/vim-gitgutter'
+    Plug 'junegunn/gv.vim'
 
-    " https://vimawesome.com/plugin/nerdtree-red
     Plug 'preservim/nerdtree'
 
-    " https://vimawesome.com/plugin/tcomment
-    Plug 'tomtom/tcomment_vim'
+    Plug 'tpope/vim-commentary'
 
-    " https://vimawesome.com/plugin/vim-dirdiff
     Plug 'will133/vim-dirdiff'
 
     if executable('composer')
         " https://vimawesome.com/plugin/phpactor
         Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev --prefer-dist --classmap-authoritative'}
-        Plug 'slamdunk/vim-php-static-analysis'
+        Plug 'slamdunk/vim-php-static-analysis', {'for': 'php'}
 
-        Plug 'dantleech/vim-phpnamespace'
+        Plug 'dantleech/vim-phpnamespace', {'for': 'php'}
         Plug 'dense-analysis/ale'
 
         Plug 'vim-test/vim-test'
         Plug 'tpope/vim-dispatch'
-        Plug 'slamdunk/vim-compiler-phpunit'
+        Plug 'slamdunk/vim-compiler-phpunit', {'for': 'php'}
     endif
 call plug#end()
 
@@ -84,12 +79,8 @@ map <Leader>f :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
 
-" Too many mapping from default TComment plugin
-let g:tcomment_maps = 0
-nmap <silent> gc <Plug>TComment_gc
-nmap <silent> gcc <Plug>TComment_gcc
-nmap <silent> gcb <Plug>TComment_gcb
-xmap gc <Plug>TComment_gc
+"Comments for PHP
+autocmd FileType php setlocal commentstring=//\ %s
 
 " PHPActor
 " Include use statement
@@ -118,9 +109,12 @@ endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 " Jump to position where last exited current buffer
-if has("autocmd")
-    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Reload file when it changes on disk, can be undo
+set autoread
+
+set history=1000
 
 " Appearance
 set background=dark
