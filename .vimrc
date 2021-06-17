@@ -69,7 +69,13 @@ if executable('composer')
     \}
     nmap <silent> <C-k> <Plug>(ale_previous_wrap)
     nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+    let php_sql_query = 1
+    let php_htmlInStrings = 1
+    let php_folding = 1
 endif
+
+set foldlevel=99
 
 set hidden
 let g:airline#extensions#tabline#enabled = 1
