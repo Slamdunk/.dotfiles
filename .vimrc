@@ -26,13 +26,14 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'will133/vim-dirdiff'
 
+    Plug 'dense-analysis/ale'
+
     if executable('composer')
         " https://vimawesome.com/plugin/phpactor
         Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev --prefer-dist --classmap-authoritative'}
         Plug 'slamdunk/vim-php-static-analysis', {'for': 'php'}
 
         Plug 'dantleech/vim-phpnamespace', {'for': 'php'}
-        Plug 'dense-analysis/ale'
 
         Plug 'vim-test/vim-test'
         Plug 'tpope/vim-dispatch'
@@ -40,10 +41,27 @@ call plug#begin('~/.vim/plugged')
     endif
 call plug#end()
 
+
+let g:ale_php_phpcbf_executable = 'vendor/bin/phpcbf'
+let g:ale_php_phpcs_executable = 'vendor/bin/phpcs'
+let g:ale_php_phpstan_executable = 'vendor/bin/phpstan'
+let g:ale_php_psalm_executable = ' vendor/bin/psalm'
+let g:ale_php_cs_fixer_executable = 'vendor/bin/php-cs-fixer'
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'php': ['php_cs_fixer', 'phpcbf'],
+\}
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
 let test#strategy = "dispatch"
 
 set omnifunc=syntaxcomplete#Complete
 if executable('composer')
+    let php_sql_query = 1
+    let php_htmlInStrings = 1
+    let php_folding = 1
+
     autocmd FileType php setlocal omnifunc=phpactor#Complete
     set completeopt=noinsert,menuone,noselect
     function! CleverTab()
@@ -57,22 +75,6 @@ if executable('composer')
     endfunction
     inoremap <Tab> <C-R>=CleverTab()<CR>
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    let g:ale_php_phpcbf_executable = 'vendor/bin/phpcbf'
-    let g:ale_php_phpcs_executable = 'vendor/bin/phpcs'
-    let g:ale_php_phpstan_executable = 'vendor/bin/phpstan'
-    let g:ale_php_psalm_executable = ' vendor/bin/psalm'
-    let g:ale_php_cs_fixer_executable = 'vendor/bin/php-cs-fixer'
-    let g:ale_fixers = {
-    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \   'php': ['php_cs_fixer', 'phpcbf'],
-    \}
-    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-    let php_sql_query = 1
-    let php_htmlInStrings = 1
-    let php_folding = 1
 endif
 
 set foldlevel=99
@@ -149,6 +151,12 @@ set undodir=~/.vim/undo
 set ignorecase
 set smartcase
 set incsearch
+" From :help incsearch
+augroup vimrc-incsearch-highlight
+    autocmd!
+    autocmd CmdlineEnter /,\? :set hlsearch
+    autocmd CmdlineLeave /,\? :set nohlsearch
+augroup END
 
 " Indent behaviour
 set autoindent
