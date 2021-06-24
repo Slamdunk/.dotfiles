@@ -47,7 +47,7 @@ if executable('composer')
     autocmd FileType php setlocal omnifunc=phpactor#Complete
     set completeopt=noinsert,menuone,noselect
     function! CleverTab()
-        if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+        if strpart( getline('.'), col('.')-2, 1 ) =~ '^\s$'
             return "\<Tab>"
         elseif pumvisible()
             return "\<C-n>"
@@ -80,10 +80,11 @@ set foldlevel=99
 set hidden
 let g:airline#extensions#tabline#enabled = 1
 
-map <Leader>n :NERDTreeToggle<CR>
-map <Leader>f :NERDTreeFind<CR>
+noremap <Leader>n :NERDTreeToggle<CR>
+noremap <Leader>f :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeShowHidden=1
 
 "Comments for PHP
 autocmd FileType php setlocal commentstring=//\ %s
@@ -92,14 +93,17 @@ autocmd FileType php setlocal commentstring=//\ %s
 " Include use statement
 "nmap <Leader>u  :call phpactor#UseAdd()<CR>
 " Invoke the context menu
-nmap <Leader>o :call phpactor#ContextMenu()<CR>
+nnoremap <Leader>o :call phpactor#ContextMenu()<CR>
 " Invoke the navigation menu
-nmap <Leader>p :call phpactor#GotoDefinition()<CR>
+nnoremap <Leader>p :call phpactor#GotoDefinition()<CR>
 
 " Browsing buffers quickly
-map <Leader>w       :bdelete<CR>
-map <Leader><Right> :bnext<CR>
-map <Leader><Left>  :bprevious<CR>
+noremap <S-s>       :update<CR>
+noremap <S-w>       :confirm bdelete<CR>
+noremap <S-q>       :confirm quitall<CR>
+" Shift keys within TMUX
+noremap <Esc>[1;2C  :bnext<CR>
+noremap <Esc>[1;2D  :bprevious<CR>
 
 " indent without killing the selection in VISUAL mode
 vmap < <gv
@@ -155,6 +159,4 @@ set softtabstop=4
 set tabstop=4
 set shiftround
 
-if has("autocmd")
-    filetype plugin indent on
-endif
+filetype plugin indent on
