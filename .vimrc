@@ -6,17 +6,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
+let dev_with_composer = executable('composer') && $USER != 'root'
+
 call plug#begin('~/.vim/plugged')
-    " https://vimawesome.com/plugin/fzf-vim
-    " How did I live without FZF before?
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --xdg --no-update-rc' }
     Plug 'junegunn/fzf.vim'
 
     Plug 'vim-airline/vim-airline'
 
-    " Best integration with airline
     Plug 'tpope/vim-fugitive'
-    " Git +-~ symbols within files
     Plug 'airblade/vim-gitgutter'
     Plug 'junegunn/gv.vim'
 
@@ -28,7 +26,7 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'dense-analysis/ale'
 
-    if executable('composer')
+    if dev_with_composer
         " https://vimawesome.com/plugin/phpactor
         Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev --prefer-dist --classmap-authoritative'}
         Plug 'slamdunk/vim-php-static-analysis', {'for': 'php'}
@@ -41,6 +39,7 @@ call plug#begin('~/.vim/plugged')
     endif
 call plug#end()
 
+let mapleader = ","
 
 let g:ale_php_phpcbf_executable = 'vendor/bin/phpcbf'
 let g:ale_php_phpcs_executable = 'vendor/bin/phpcs'
@@ -51,20 +50,21 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'php': ['php_cs_fixer', 'phpcbf'],
 \}
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <C-k> <Plug>(ale_previous_wrap)
+nmap <C-j> <Plug>(ale_next_wrap)
 
 let test#strategy = "dispatch"
 
-set omnifunc=syntaxcomplete#Complete
-if executable('composer')
-    let php_sql_query = 1
-    let php_htmlInStrings = 1
-    let php_folding = 1
+let php_sql_query = 1
+let php_htmlInStrings = 1
+let php_folding = 1
 
+set omnifunc=syntaxcomplete#Complete
+set completeopt=noinsert,menuone,noselect
+
+if dev_with_composer
     autocmd FileType php setlocal omnifunc=phpactor#Complete
-    set completeopt=noinsert,menuone,noselect
-    function! CleverTab()
+    function CleverTab()
         if strpart( getline('.'), col('.')-2, 1 ) =~ '^\s$'
             return "\<Tab>"
         elseif pumvisible()
@@ -82,11 +82,28 @@ set foldlevel=99
 set hidden
 let g:airline#extensions#tabline#enabled = 1
 
-noremap <Leader>n :NERDTreeToggle<CR>
-noremap <Leader>f :NERDTreeFind<CR>
+set wildignore+=*.swp
+
+nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeShowHidden=1
+let NERDTreeRespectWildIgnore=1
+
+nnoremap <Leader>m :GFiles<CR>
+nnoremap <Leader>l :Files<CR>
+" Shift keys within TMUX
+noremap <Esc>[1;2A  :cprevious<CR>
+noremap <Esc>[1;2B  :cnext<CR>
+function ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+nnoremap <Leader>q :call ToggleQuickFix()<CR>
 
 "Comments for PHP
 autocmd FileType php setlocal commentstring=//\ %s
@@ -99,7 +116,6 @@ nnoremap <Leader>o :call phpactor#ContextMenu()<CR>
 " Invoke the navigation menu
 nnoremap <Leader>p :call phpactor#GotoDefinition()<CR>
 
-" Browsing buffers quickly
 noremap <S-s>       :update<CR>
 noremap <S-w>       :confirm bdelete<CR>
 noremap <S-q>       :confirm quitall<CR>
@@ -111,7 +127,7 @@ noremap <Esc>[1;2D  :bprevious<CR>
 vmap < <gv
 vmap > >gv
 
-function! s:DiffWithSaved()
+function s:DiffWithSaved()
   let filetype=&ft
   diffthis
   vnew | r # | normal! 1Gdd
@@ -151,12 +167,8 @@ set undodir=~/.vim/undo
 set ignorecase
 set smartcase
 set incsearch
-" From :help incsearch
-augroup vimrc-incsearch-highlight
-    autocmd!
-    autocmd CmdlineEnter /,\? :set hlsearch
-    autocmd CmdlineLeave /,\? :set nohlsearch
-augroup END
+set hlsearch
+nnoremap <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 
 " Indent behaviour
 set autoindent
