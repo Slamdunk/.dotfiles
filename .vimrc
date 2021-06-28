@@ -168,7 +168,10 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
+" Clear hightlight
 nnoremap <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+" Paste regex-escaped yanked text
+cnoremap <C-o> <C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\n', '\\n', 'g')<CR>
 
 " Indent behaviour
 set autoindent
