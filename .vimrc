@@ -27,14 +27,16 @@ call plug#begin('~/.vim/plugged')
     Plug 'dense-analysis/ale'
 
     if dev_with_composer
+        Plug 'preservim/tagbar', {'for': 'php'}
+
         " https://vimawesome.com/plugin/phpactor
         Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev --prefer-dist --classmap-authoritative'}
         Plug 'slamdunk/vim-php-static-analysis', {'for': 'php'}
 
         Plug 'dantleech/vim-phpnamespace', {'for': 'php'}
 
-        Plug 'vim-test/vim-test'
-        Plug 'tpope/vim-dispatch'
+        Plug 'vim-test/vim-test', {'for': 'php'}
+        Plug 'tpope/vim-dispatch', {'for': 'php'}
         Plug 'slamdunk/vim-compiler-phpunit', {'for': 'php'}
     endif
 call plug#end()
@@ -63,6 +65,7 @@ set omnifunc=syntaxcomplete#Complete
 set completeopt=noinsert,menuone,noselect
 
 if dev_with_composer
+    nnoremap <F8> :TagbarToggle<CR>
     autocmd FileType php setlocal omnifunc=phpactor#Complete
     function CleverTab()
         if strpart( getline('.'), col('.')-2, 1 ) =~ '^\s$'
