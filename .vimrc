@@ -127,8 +127,12 @@ noremap <Esc>[1;2C  :bnext<CR>
 noremap <Esc>[1;2D  :bprevious<CR>
 
 " indent without killing the selection in VISUAL mode
-vmap < <gv
-vmap > >gv
+vnoremap < <gv
+vnoremap > >gv
+
+" Prevent selecting and pasting from overwriting what you originally copied.
+vnoremap P "_dP
+vnoremap p "_dp
 
 function s:DiffWithSaved()
   let filetype=&ft
