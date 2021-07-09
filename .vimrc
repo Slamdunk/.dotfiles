@@ -29,15 +29,10 @@ call plug#begin('~/.vim/plugged')
     if dev_with_composer
         Plug 'preservim/tagbar', {'for': 'php'}
 
-        " https://vimawesome.com/plugin/phpactor
         Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev --prefer-dist --classmap-authoritative'}
         Plug 'slamdunk/vim-php-static-analysis', {'for': 'php'}
 
         Plug 'dantleech/vim-phpnamespace', {'for': 'php'}
-
-        Plug 'vim-test/vim-test', {'for': 'php'}
-        Plug 'tpope/vim-dispatch', {'for': 'php'}
-        Plug 'slamdunk/vim-compiler-phpunit', {'for': 'php'}
     endif
 call plug#end()
 
@@ -55,8 +50,6 @@ let g:ale_fixers = {
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
 
-let test#strategy = "dispatch"
-
 let php_sql_query = 1
 let php_htmlInStrings = 1
 let php_folding = 1
@@ -68,7 +61,7 @@ if dev_with_composer
     nnoremap <F8> :TagbarToggle<CR>
     autocmd FileType php setlocal omnifunc=phpactor#Complete
     function CleverTab()
-        if strpart( getline('.'), col('.')-2, 1 ) =~ '^\s$'
+        if strpart( getline('.'), col('.')-2, 1 ) =~ '^\s*$'
             return "\<Tab>"
         elseif pumvisible()
             return "\<C-n>"
