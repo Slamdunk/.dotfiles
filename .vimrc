@@ -61,10 +61,10 @@ if dev_with_composer
     nnoremap <F8> :TagbarToggle<CR>
     autocmd FileType php setlocal omnifunc=phpactor#Complete
     function CleverTab()
-        if strpart( getline('.'), col('.')-2, 1 ) =~ '^\s*$'
-            return "\<Tab>"
-        elseif pumvisible()
+        if pumvisible()
             return "\<C-n>"
+        elseif strpart( getline('.'), col('.')-2, 1 ) =~ '^\s*$'
+            return "\<Tab>"
         else
             return "\<C-X>\<C-O>"
         endif
@@ -89,9 +89,8 @@ let NERDTreeRespectWildIgnore=1
 
 nnoremap <Leader>m :GFiles<CR>
 nnoremap <Leader>l :Files<CR>
-" Shift keys within TMUX
-noremap <Esc>[1;2A  :cprevious<CR>
-noremap <Esc>[1;2B  :cnext<CR>
+noremap <S-Up>      :cprevious<CR>
+noremap <S-Down>    :cnext<CR>
 function ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
         copen
@@ -115,9 +114,9 @@ nnoremap <Leader>p :call phpactor#GotoDefinition()<CR>
 noremap <S-s>       :update<CR>
 noremap <S-w>       :confirm bdelete<CR>
 noremap <S-q>       :confirm quitall<CR>
-" Shift keys within TMUX
-noremap <Esc>[1;2C  :bnext<CR>
-noremap <Esc>[1;2D  :bprevious<CR>
+
+noremap <S-Right>   :bnext<CR>
+noremap <S-Left>    :bprevious<CR>
 
 " indent without killing the selection in VISUAL mode
 vnoremap < <gv
