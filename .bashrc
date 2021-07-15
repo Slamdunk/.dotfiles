@@ -3,7 +3,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ] && [ -z "$PHPSTORM" ]; then
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ ^(screen|tmux|xterm) ]] && [ -z "$TMUX" ] && [ -z "$PHPSTORM" ]; then
     exec tmux new -ADs def && exit
 fi
 
@@ -13,11 +13,10 @@ else
     umask 0027
 fi
 
-if [ "${XDG_CURRENT_DESKTOP}" != "" ]; then
+if [ "${XDG_RUNTIME_DIR}" != "" ]; then
     export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
-    gpg-connect-agent updatestartuptty /bye > /dev/null
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -131,6 +130,8 @@ esac
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+bind 'set mark-symlinked-directories on'
 
 export EDITOR=vim
 
