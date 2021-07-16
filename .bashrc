@@ -3,7 +3,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ ^(screen|tmux|xterm) ]] && [ -z "$TMUX" ] && [ -z "$PHPSTORM" ]; then
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [ -n "${XDG_CURRENT_DESKTOP}" ] && [ -z "$TMUX" ] && [ -z "$PHPSTORM" ]; then
     exec tmux new -ADs def && exit
 fi
 
@@ -13,7 +13,7 @@ else
     umask 0027
 fi
 
-if [ "${XDG_CURRENT_DESKTOP}" != "" ]; then
+if [ -n "${XDG_CURRENT_DESKTOP}" ]; then
     export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
