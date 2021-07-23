@@ -98,7 +98,7 @@ uno spazio, per compatibilità con i nostri standard e tutti gli altri editor.
 sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
 && sudo apt install \
-    php8.0-bcmath php8.0-cli php8.0-common php8.0-curl php8.0-gd php8.0-imap php8.0-intl php8.0-json php8.0-mbstring php8.0-mysql php8.0-opcache php8.0-pcov php8.0-phpdbg php8.0-readline php8.0-sqlite3 php8.0-xml php8.0-zip \
+    php8.0-bcmath php8.0-cli php8.0-common php8.0-curl php8.0-gd php8.0-imap php8.0-intl php8.0-mbstring php8.0-mysql php8.0-opcache php8.0-pcov php8.0-phpdbg php8.0-readline php8.0-sqlite3 php8.0-xml php8.0-zip \
 && mkdir ~/bin \
 && ( cd ~/bin && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php && php -r "unlink('composer-setup.php');" ) \
 && mv ~/bin/composer{.phar,} \
