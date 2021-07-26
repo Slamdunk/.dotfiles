@@ -51,7 +51,7 @@ sudo chmod 0440 /etc/sudoers.d/umask \
 ```
 sudo apt update \
 && sudo apt install \
-    vim \
+    vim vim-gtk3 \
     git \
     curl \
     tmux xclip \
@@ -63,10 +63,8 @@ sudo apt update \
     meld \
     ncdu \
     network-manager-openvpn-gnome \
-    gocryptfs \
-    gnupg2 gnupg-agent pinentry-curses scdaemon pcscd \
+    gnupg2 gnupg-agent pinentry-curses scdaemon pcscd libusb-1.0-0-dev \
 && sudo usermod -aG docker $USER \
-&& snap install phpstorm --classic \
 && reboot
 ```
 
