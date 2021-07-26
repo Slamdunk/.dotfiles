@@ -57,7 +57,6 @@ sudo apt update \
     tmux xclip \
     ripgrep \
     geany geany-plugin-lineoperations geany-plugin-prettyprinter geany-plugin-addons \
-    filezilla \
     htop iotop \
     docker.io docker-compose make \
     meld \
