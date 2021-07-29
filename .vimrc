@@ -123,8 +123,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Prevent selecting and pasting from overwriting what you originally copied.
-vnoremap P "_dP
-vnoremap p "_dp
+vnoremap p "_dP
 
 function s:DiffWithSaved()
   let filetype=&ft
