@@ -146,6 +146,7 @@ set history=1000
 set background=dark
 syntax on
 set number
+set relativenumber
 set scrolloff=5
 set laststatus=2
 set showcmd
