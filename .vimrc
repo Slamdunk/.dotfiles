@@ -89,6 +89,7 @@ let NERDTreeRespectWildIgnore=1
 
 nnoremap <Leader>m :GFiles<CR>
 nnoremap <Leader>l :Files<CR>
+nnoremap <Leader>h :History<CR>
 noremap <S-Up>      :cprevious<CR>
 noremap <S-Down>    :cnext<CR>
 function ToggleQuickFix()
@@ -151,7 +152,7 @@ set scrolloff=5
 set laststatus=2
 set showcmd
 set wildmenu
-set wildmode=longest:full
+set wildmode=longest:full,full
 
 if !isdirectory($HOME.'/.vim/undo')
     call mkdir($HOME.'/.vim/undo')
