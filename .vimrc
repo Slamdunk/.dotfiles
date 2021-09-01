@@ -33,6 +33,9 @@ call plug#begin('~/.vim/plugged')
         Plug 'slamdunk/vim-php-static-analysis', {'for': 'php'}
 
         Plug 'dantleech/vim-phpnamespace', {'for': 'php'}
+
+        Plug 'vim-vdebug/vdebug'
+        let g:vdebug_options = {'port' : 9003}
     endif
 call plug#end()
 
@@ -124,7 +127,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Prevent selecting and pasting from overwriting what you originally copied.
-vnoremap p "_dP
+vnoremap <Leader>p "_dP
 
 function s:DiffWithSaved()
   let filetype=&ft
@@ -181,5 +184,7 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set shiftround
+set listchars=tab:>>,trail:-,extends:>,precedes:<,nbsp:+
+set list
 
 filetype plugin indent on
