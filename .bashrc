@@ -13,12 +13,6 @@ else
     umask 0027
 fi
 
-if [ -n "${XDG_CURRENT_DESKTOP}" ]; then
-    export GPG_TTY="$(tty)"
-    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-    gpgconf --launch gpg-agent
-fi
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
