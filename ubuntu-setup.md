@@ -62,9 +62,7 @@ sudo apt update \
     meld \
     ncdu \
     network-manager-openvpn-gnome \
-    gnupg2 gnupg-agent pinentry-curses scdaemon pcscd libusb-1.0-0-dev \
-&& sudo usermod -aG docker $USER \
-&& reboot
+&& sudo usermod -aG docker $USER
 ```
 
 ## Yubikey
