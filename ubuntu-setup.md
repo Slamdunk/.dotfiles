@@ -25,27 +25,6 @@ echo "vm.swappiness = 10" | sudo tee --append /etc/sysctl.conf
 echo "fs.inotify.max_user_watches = 524288" | sudo tee --append /etc/sysctl.conf
 ```
 
-## Sicurezza
-
-Per sicurezza, rimuovere i permessi altrui dalla propria home:
-
-```
-chmod 0700 ~
-chmod -R o-rwx ~
-sed -i 's/#umask.\+/umask 0027/' ~/.profile
-```
-
-Tuttavia va ripristinato lo umask 0022 per il sudo:
-
-```
-cat <<'EOF' | sudo tee /etc/sudoers.d/umask
-Defaults umask_override
-Defaults umask=0022
-EOF
-sudo chmod 0440 /etc/sudoers.d/umask \
-&& reboot
-```
-
 ## Software di base
 
 ```
@@ -65,18 +44,6 @@ sudo apt update \
 && sudo usermod -aG docker $USER
 ```
 
-## Yubikey
-
-Impostazioni GNUPG:
-
-```
-mkdir --parents --verbose ~/.gnupg \
-    && wget -O ~/.gnupg/gpg.conf https://raw.githubusercontent.com/drduh/config/master/gpg.conf \
-    && wget -O ~/.gnupg/gpg-agent.conf https://raw.githubusercontent.com/drduh/config/master/gpg-agent.conf \
-    && sudo sed -i 's/^use-ssh-agent/no-use-ssh-agent/' /etc/X11/Xsession.options \
-    && xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool -s false
-```
-
 ## Geany settings
 
 Preferenze per Geany:
@@ -93,11 +60,13 @@ uno spazio, per compatibilità con i nostri standard e tutti gli altri editor.
 sudo add-apt-repository ppa:ondrej/php \
 && sudo apt update \
 && sudo apt install \
-    php8.0-bcmath php8.0-cli php8.0-common php8.0-curl php8.0-gd php8.0-imap php8.0-intl php8.0-mbstring php8.0-mysql php8.0-opcache php8.0-pcov php8.0-phpdbg php8.0-readline php8.0-sqlite3 php8.0-xml php8.0-zip \
+    php8.2-bcmath php8.2-cli php8.2-common php8.2-curl php8.2-gd php8.2-mbstring php8.2-mysql php8.2-opcache php8.2-pcov php8.2-readline php8.2-sqlite3 php8.2-xd
+ebug php8.2-xml php8.2-zip \
 && mkdir ~/bin \
 && ( cd ~/bin && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php && php -r "unlink('composer-setup.php');" ) \
 && mv ~/bin/composer{.phar,} \
-&& wget -O ~/bin/phive "https://phar.io/releases/phive.phar" \
-&& chmod +x ~/bin/phive \
-&& ~/bin/phive install --target $HOME/bin --trust-gpg-keys C00543248C87FB13,D2CCAC42F6295E7D,F4D32E2C9343B2AE composer-normalize composer-require-checker composer-unused
+&& wget -O ~/bin/composer-normalize https://github.com/ergebnis/composer-normalize/releases/latest/download/composer-normalize.phar \
+&& wget -O ~/bin/composer-require-checker https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar \
+&& wget -O ~/bin/composer-unused https://github.com/composer-unused/composer-unused/releases/latest/download/composer-unused.phar \
+&& chmod +x ~/bin/composer-*
 ```
