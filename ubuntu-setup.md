@@ -46,7 +46,7 @@ sudo apt update \
     make \
     meld \
     ncdu \
-    network-manager-openvpn-gnome \
+    libnss3-tools network-manager-openvpn-gnome \
 && sudo usermod -aG docker $USER
 ```
 
