@@ -27,7 +27,11 @@ echo "fs.inotify.max_user_watches = 524288" | sudo tee --append /etc/sysctl.conf
 
 ## Software di base
 
+Come primo step eseguire i punto `1` e `2` al seguente link:
+
 https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+
+Poi:
 
 ```console
 echo '{"default-address-pools": [{"base":"172.18.0.0/16","size":24}]}' | sudo tee /etc/docker/daemon.json
