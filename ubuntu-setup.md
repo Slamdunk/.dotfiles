@@ -59,6 +59,7 @@ sudo apt update \
 ```console
 sudo apt install clevis clevis-tpm2 clevis-luks clevis-initramfs initramfs-tools tss2
 sudo clevis luks bind -d /dev/nvme0n1p3 tpm2 '{"pcr_bank":"sha256","pcr_ids":"0,1"}'
+sudo update-grub
 sudo update-initramfs -u -k all
 # sudo systemd-analyze pcrs
 ```
