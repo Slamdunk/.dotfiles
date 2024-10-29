@@ -1,7 +1,6 @@
-[user]
-    name = "Filippo Tessarotto"
-    email = zoeslam@gmail.com
-    signingKey = 0xE3CF0CB782A7D5AB
+;[user]
+;    name = "Filippo Tessarotto"
+;    email = zoeslam@gmail.com
 [core]
     editor = vim
     whitespace = trailing-space,space-before-tab
@@ -24,5 +23,3 @@
     prune = true
 [pull]
     rebase = false
-[commit]
-    gpgsign = true
