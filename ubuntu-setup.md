@@ -68,8 +68,4 @@ sudo update-initramfs -u -k all
 
 Preferenze per Geany:
 
-1. Editor > Caratteristiche > Marcatore di selezione del commento: togliere la tilda ~ e mettere
-uno spazio, per compatibilità con i nostri standard e tutti gli altri editor.
-2. Editor > Indentazione > Tipo: Spazi
-3. File > Salvataggio File > Assicura fine riga consistenti
-4. File > Salvataggio File > Elimina spazi e tabulazioni in coda
+1. General > Startup > [ ] Load virtual terminal support
