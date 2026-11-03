@@ -3,7 +3,12 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [ -n "${XDG_CURRENT_DESKTOP}" ] && [ -z "$TMUX" ] && [ -z "$PHPSTORM" ]; then
+if command -v tmux &> /dev/null \
+   && [ -t 0 ] && [ -t 1 ] \
+   && [ -n "${XDG_CURRENT_DESKTOP}" ] \
+   && [ -z "$TMUX" ] \
+   && [ -z "$PHPSTORM" ] \
+   && [ -z "$CLAUDE_DESKTOP" ]; then
     exec tmux new -ADs def && exit
 fi
 
@@ -184,3 +189,5 @@ genpasswd() {
     [ "$l" == "" ] && l=32
     tr -dc ABCDEFGHKMNPQRSTUVWXYZabcdefghkmnpqrstuvwxyz23456789_ < /dev/urandom | head -c ${l} | xargs
 }
+
+export SSH_AUTH_SOCK=/run/user/1000/gcr/ssh
