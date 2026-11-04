@@ -90,6 +90,14 @@ if dev_with_composer
     endfunction
     inoremap <Tab> <C-R>=CleverTab()<CR>
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    " PHPActor
+    " Include use statement
+    "nmap <Leader>u  :call phpactor#UseAdd()<CR>
+    " Invoke the context menu
+    nnoremap <Leader>o :call phpactor#ContextMenu()<CR>
+    " Invoke the navigation menu
+    nnoremap <Leader>p :call phpactor#GotoDefinition()<CR>
 endif
 
 set foldlevel=99
@@ -122,14 +130,6 @@ nnoremap <Leader>q :call ToggleQuickFix()<CR>
 
 "Comments for PHP
 autocmd vimrc FileType php setlocal commentstring=//\ %s
-
-" PHPActor
-" Include use statement
-"nmap <Leader>u  :call phpactor#UseAdd()<CR>
-" Invoke the context menu
-nnoremap <Leader>o :call phpactor#ContextMenu()<CR>
-" Invoke the navigation menu
-nnoremap <Leader>p :call phpactor#GotoDefinition()<CR>
 
 nnoremap <S-s>       :update<CR>
 nnoremap <S-w>       :confirm bdelete<CR>
