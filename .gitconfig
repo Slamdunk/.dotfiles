@@ -13,6 +13,8 @@
     prune = true
 [pull]
     rebase = false
+[push]
+    autoSetupRemote = true
 
 ; Machine-specific settings (user.name, user.email, signing key, ...), not tracked
 [include]
