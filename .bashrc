@@ -19,6 +19,12 @@ if [ "$EUID" -eq 0 ]; then
     umask 0022
 else
     umask 0027
+
+    # sudo combines its default umask with ours (0027): files created as root
+    # (e.g. in /etc) would not be world-readable, so use the system default there
+    sudo() {
+        ( umask 0022 && command sudo "$@" )
+    }
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
