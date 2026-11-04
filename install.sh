@@ -39,3 +39,21 @@ if command -v git &> /dev/null && [ -z "$(git config --global --includes user.em
     echo "    git config --file ~/.gitconfig.local user.email \"you@example.com\""
 fi
 
+# Missing packages hint (Debian/Ubuntu)
+missing=()
+for pair in git:git vim:vim tmux:tmux fzf:fzf rg:ripgrep curl:curl; do
+    command -v "${pair%%:*}" &> /dev/null || missing+=("${pair##*:}")
+done
+[ -f /usr/share/bash-completion/bash_completion ] || missing+=("bash-completion")
+if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        command -v wl-copy &> /dev/null || missing+=("wl-clipboard")
+    else
+        command -v xclip &> /dev/null || missing+=("xclip")
+    fi
+fi
+if [ ${#missing[@]} -gt 0 ]; then
+    echo
+    echo "Suggested packages not installed:"
+    echo "    sudo apt install ${missing[*]}"
+fi
