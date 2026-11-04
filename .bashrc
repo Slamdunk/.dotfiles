@@ -176,12 +176,19 @@ if ! shopt -oq posix; then
     fi
 fi
 
-if [ -f ~/.config/fzf/fzf.bash ]; then
+# fzf key bindings and completion:
+# modern fzf (>= 0.48) first, then Debian/Ubuntu package files, then the vim-plug build
+if fzf_init=$(fzf --bash 2> /dev/null); then
+    eval "$fzf_init"
+elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    . /usr/share/doc/fzf/examples/key-bindings.bash
+elif [ -f ~/.config/fzf/fzf.bash ]; then
     . ~/.config/fzf/fzf.bash
+fi
+unset fzf_init
 
-    if [ -x /usr/bin/rg ]; then
-        export FZF_CTRL_T_COMMAND="/usr/bin/rg --files"
-    fi;
+if command -v rg &> /dev/null; then
+    export FZF_CTRL_T_COMMAND="rg --files"
 fi
 
 genpasswd() {
