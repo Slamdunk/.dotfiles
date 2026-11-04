@@ -16,6 +16,10 @@
 ### PhpStorm ###
 .idea/
 
+### Merge / patch leftovers ###
+*.orig
+*.rej
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
