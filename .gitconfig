@@ -26,6 +26,8 @@
     rebase = false
 [push]
     autoSetupRemote = true
+[help]
+    autocorrect = prompt
 
 ; Machine-specific settings (user.name, user.email, signing key, ...), not tracked
 [include]
