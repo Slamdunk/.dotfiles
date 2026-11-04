@@ -44,7 +44,7 @@ let mapleader = ","
 let g:ale_php_phpcbf_executable = 'vendor/bin/phpcbf'
 let g:ale_php_phpcs_executable = 'vendor/bin/phpcs'
 let g:ale_php_phpstan_executable = 'vendor/bin/phpstan'
-let g:ale_php_psalm_executable = ' vendor/bin/psalm'
+let g:ale_php_psalm_executable = 'vendor/bin/psalm'
 let g:ale_php_cs_fixer_executable = 'vendor/bin/php-cs-fixer'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
