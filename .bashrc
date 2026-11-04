@@ -130,11 +130,6 @@ screen*)
 esac
 export -n PROMPT_COMMAND
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
 bind 'set mark-symlinked-directories on'
 
 export EDITOR=vim
