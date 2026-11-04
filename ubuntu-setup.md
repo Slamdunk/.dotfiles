@@ -59,6 +59,8 @@ sudo apt update \
 
 Il gruppo `docker` è attivo solo dopo logout e nuovo login.
 
+Infine installare i dotfiles seguendo il [README](README.md).
+
 ## LUKS unlocked with TPM
 
 Da Ubuntu 26.04 in poi.
