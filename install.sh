@@ -13,7 +13,7 @@ for file in \
     destination=~/"$file"
     newfile="${thisDir:?}""/""$file"
     if [ -f "$destination" ]; then
-        diffOutput=$(diff "$destination" "$newfile")
+        diffOutput=$(diff -u --color=always "$destination" "$newfile")
         [ $? = 1 ] || continue
         if [ "$1" != "--non-interactive" ]; then
             echo "$diffOutput"
