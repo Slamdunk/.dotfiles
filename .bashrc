@@ -15,7 +15,7 @@ if command -v tmux &> /dev/null \
     exec tmux new -ADs def && exit
 fi
 
-if [ "$USER" == "root" ]; then
+if [ "$EUID" -eq 0 ]; then
     umask 0022
 else
     umask 0027
@@ -92,10 +92,6 @@ C_RESET="\\[\\033[0m\\]"
 sign="\$"
 user_color="$C_YELLOW"
 case "$USER" in
-    root)
-        sign="#"
-        user_color="$C_LIGHT_RED"
-        ;;
     slam|tessarotto)
         user_color="$C_LIGHT_GREEN"
         ;;
@@ -103,6 +99,10 @@ case "$USER" in
         user_color="$C_LIGHT_CYAN"
         ;;
 esac
+if [ "$EUID" -eq 0 ]; then
+    sign="#"
+    user_color="$C_LIGHT_RED"
+fi
 
 GIT_PS1_SHOWDIRTYSTATE='y'
 GIT_PS1_SHOWSTASHSTATE='y'
