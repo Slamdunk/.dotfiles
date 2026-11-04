@@ -1,17 +1,17 @@
-# Dual boot con Windows
+# Dual boot with Windows
 
-In caso si volesse fare dual boot con Windows, bisogna accertarsi che Windows salvi l’orario interno del PC in formato UTC, altrimenti vanno in conflitto tra loro.
+When dual booting with Windows, make sure Windows stores the PC's hardware clock in UTC, otherwise the two systems conflict with each other.
 
-Seguire il paragrafo “Option Two: Make Windows Use UTC Time” nel link:
+Follow the "Option Two: Make Windows Use UTC Time" section at:
 https://www.howtogeek.com/323390/how-to-fix-windows-and-linux-showing-different-times-when-dual-booting/
 
-# OS di riferimento: Ubuntu 26.04 LTS (compatibile con Debian 13)
+# Reference OS: Ubuntu 26.04 LTS (compatible with Debian 13)
 
 ## Firewall
 
-Abilitare il firewall, lasciando aperte le porte:
+Enable the firewall, leaving these ports open:
 
-1. 9003: PHPStorm in ascolto per xDebug su Docker e da server di Sviluppo
+1. 9003: PHPStorm listening for Xdebug from Docker and from development servers
 
 ```console
 sudo ufw enable
@@ -20,20 +20,20 @@ sudo ufw allow from 172.18.0.0/16 proto tcp to any port 9003
 
 ## Sysctl
 
-Da Ubuntu 26.04 e Debian 13 il file `/etc/sysctl.conf` non viene più letto: usare un file in `/etc/sysctl.d/`.
+Since Ubuntu 26.04 and Debian 13 the `/etc/sysctl.conf` file is no longer read: use a file in `/etc/sysctl.d/`.
 
 ```console
 printf 'vm.swappiness = 10\nfs.inotify.max_user_watches = 524288\n' | sudo tee /etc/sysctl.d/99-local.conf
 sudo sysctl --system
 ```
 
-## Software di base
+## Base software
 
-Come primo step eseguire i punto `1` e `2` al seguente link:
+As a first step, follow steps `1` and `2` at:
 
 https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
-Poi:
+Then:
 
 ```console
 echo '{"default-address-pools": [{"base":"172.18.0.0/16","size":24}]}' | sudo tee /etc/docker/daemon.json
@@ -57,15 +57,15 @@ sudo apt update \
 && sudo usermod -aG docker $USER
 ```
 
-Il gruppo `docker` è attivo solo dopo logout e nuovo login.
+The `docker` group membership takes effect only after logging out and back in.
 
-Infine installare i dotfiles seguendo il [README](README.md).
+Finally, install the dotfiles following the [README](README.md).
 
 ## LUKS unlocked with TPM
 
-Da Ubuntu 26.04 in poi.
+From Ubuntu 26.04 onwards.
 
-Individuare la partizione cifrata (`FSTYPE` = `crypto_LUKS`) e sostituirla a `/dev/nvme0n1p3`:
+Find the encrypted partition (`FSTYPE` = `crypto_LUKS`) and use it in place of `/dev/nvme0n1p3`:
 
 ```console
 lsblk -f
@@ -78,11 +78,11 @@ sudo dracut -f
 # sudo systemd-analyze pcrs
 ```
 
-Su Debian (che usa initramfs-tools invece di dracut) installare `clevis-initramfs` al posto di `clevis-dracut`
-ed eseguire `sudo update-initramfs -u` al posto di `sudo dracut -f`.
+On Debian (which uses initramfs-tools instead of dracut) install `clevis-initramfs` instead of `clevis-dracut`
+and run `sudo update-initramfs -u` instead of `sudo dracut -f`.
 
 ## Geany settings
 
-Preferenze per Geany:
+Geany preferences:
 
 1. General > Startup > [ ] Load virtual terminal support
