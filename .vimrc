@@ -138,8 +138,10 @@ function s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
-" Jump to position where last exited current buffer
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Jump to position where last exited current buffer (not for git commit/rebase messages)
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit\|rebase'
+    \ | exe "normal! g'\"" | endif
 
 " Reload file when it changes on disk, can be undo
 set autoread
