@@ -146,6 +146,10 @@ set autoread
 
 set history=1000
 
+" Don't wait for key codes after Esc (no lag leaving insert mode)
+set ttimeout
+set ttimeoutlen=50
+
 " Appearance
 set background=dark
 syntax on
