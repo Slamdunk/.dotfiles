@@ -2,7 +2,6 @@
     editor = vim
     whitespace = trailing-space,space-before-tab
     pager = less -FRX
-    excludesfile = ~/.gitignore
 [alias]
     st = status
     co = checkout

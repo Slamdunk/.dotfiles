@@ -5,7 +5,7 @@ thisDir=$(readlink --canonicalize "$(dirname "$0")")
 for file in \
     ".bashrc" \
     ".gitconfig" \
-    ".gitignore" \
+    ".config/git/ignore" \
     ".tmux.conf" \
     ".vimrc" \
     ".wgetrc" \
@@ -23,5 +23,6 @@ for file in \
         fi
     fi
 
+    mkdir -p "$(dirname "$destination")"
     cp -av "$newfile" "$destination"
 done
