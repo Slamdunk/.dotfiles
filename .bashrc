@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 if command -v tmux &> /dev/null \
    && [ -t 0 ] && [ -t 1 ] \
