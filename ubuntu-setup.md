@@ -61,7 +61,13 @@ Il gruppo `docker` è attivo solo dopo logout e nuovo login.
 
 ## LUKS unlocked with TPM
 
-Da Ubuntu 26.04 in poi:
+Da Ubuntu 26.04 in poi.
+
+Individuare la partizione cifrata (`FSTYPE` = `crypto_LUKS`) e sostituirla a `/dev/nvme0n1p3`:
+
+```console
+lsblk -f
+```
 
 ```console
 sudo apt install clevis clevis-tpm2 clevis-dracut clevis-luks
@@ -69,6 +75,9 @@ sudo clevis luks bind -d /dev/nvme0n1p3 tpm2 '{"pcr_bank":"sha256","pcr_ids":"0,
 sudo dracut -f
 # sudo systemd-analyze pcrs
 ```
+
+Su Debian (che usa initramfs-tools invece di dracut) installare `clevis-initramfs` al posto di `clevis-dracut`
+ed eseguire `sudo update-initramfs -u` al posto di `sudo dracut -f`.
 
 ## Geany settings
 
