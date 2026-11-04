@@ -1,6 +1,3 @@
-;[user]
-;    name = "Filippo Tessarotto"
-;    email = zoeslam@gmail.com
 [core]
     editor = vim
     whitespace = trailing-space,space-before-tab
@@ -16,3 +13,7 @@
     prune = true
 [pull]
     rebase = false
+
+; Machine-specific settings (user.name, user.email, signing key, ...), not tracked
+[include]
+    path = ~/.gitconfig.local
