@@ -21,7 +21,9 @@ let dev_with_composer = executable('composer') && $USER != 'root'
 
 " plug#end() also enables 'filetype plugin indent on' and 'syntax enable'
 call plug#begin('~/.vim/plugged')
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --xdg --no-update-rc' }
+    " Vim integration plus a private fzf binary always new enough for fzf.vim;
+    " the shell uses the system fzf package
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
 
     Plug 'vim-airline/vim-airline'
