@@ -9,6 +9,13 @@
     plog = log --graph --abbrev-commit --decorate --date=relative --format=tformat:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold magenta)@ %an%C(reset)%C(bold yellow)%d%C(reset)'
 [tag]
     sort = version:refname
+[diff]
+    algorithm = histogram
+    colorMoved = default
+[merge]
+    conflictStyle = zdiff3
+[rerere]
+    enabled = true
 [fetch]
     prune = true
 [pull]
