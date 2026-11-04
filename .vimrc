@@ -1,5 +1,10 @@
 set nocompatible
 
+" Group for all autocommands of this file: cleared on re-source to avoid duplicates
+augroup vimrc
+    autocmd!
+augroup END
+
 " Auto install VIM-PLUG if not present
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -62,8 +67,8 @@ set completeopt=noinsert,menuone,noselect
 
 if dev_with_composer
     nnoremap <F8> :TagbarToggle<CR>
-    autocmd FileType php setlocal omnifunc=phpactor#Complete
-    function CleverTab()
+    autocmd vimrc FileType php setlocal omnifunc=phpactor#Complete
+    function! CleverTab()
         if pumvisible()
             return "\<C-n>"
         elseif strpart( getline('.'), col('.')-2, 1 ) =~ '^\s*$'
@@ -95,7 +100,7 @@ nnoremap <Leader>l :Files<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <S-Up>      :cprevious<CR>
 nnoremap <S-Down>    :cnext<CR>
-function ToggleQuickFix()
+function! ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
         copen
     else
@@ -105,7 +110,7 @@ endfunction
 nnoremap <Leader>q :call ToggleQuickFix()<CR>
 
 "Comments for PHP
-autocmd FileType php setlocal commentstring=//\ %s
+autocmd vimrc FileType php setlocal commentstring=//\ %s
 
 " PHPActor
 " Include use statement
@@ -129,7 +134,7 @@ vnoremap > >gv
 " Prevent selecting and pasting from overwriting what you originally copied.
 vnoremap <Leader>p "_dP
 
-function s:DiffWithSaved()
+function! s:DiffWithSaved()
   let filetype=&ft
   diffthis
   vnew | r # | normal! 1Gdd
@@ -139,7 +144,7 @@ endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 " Jump to position where last exited current buffer (not for git commit/rebase messages)
-autocmd BufReadPost *
+autocmd vimrc BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit\|rebase'
     \ | exe "normal! g'\"" | endif
 
