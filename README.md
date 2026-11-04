@@ -1,6 +1,6 @@
 # .dotfiles
 
-Shell, git, tmux, vim and wget settings for modern Debian/Ubuntu (Debian 12+, Ubuntu 22.04+).
+Shell, git, tmux, vim and wget settings for modern Debian/Ubuntu (Debian 13+, Ubuntu 24.04+).
 
 ```
 wget --output-document=- "https://github.com/Slamdunk/.dotfiles/archive/master.tar.gz" | tar -xz \
