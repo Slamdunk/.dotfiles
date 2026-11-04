@@ -116,17 +116,19 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# Save each command to the history file immediately (shared across tmux panes)
+PROMPT_COMMAND='history -a'
+
+# If this is an xterm set the title to host:dir
 case "$TERM" in
 linux|xterm*|rxvt*)
-  export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%%.*}:${PWD##*/}\007"'
+  PROMPT_COMMAND+='; echo -ne "\033]0;${HOSTNAME%%.*}:${PWD##*/}\007"'
   ;;
 screen*)
-  export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}:${PWD##*/}\033\\" '
-  ;;
-*)
+  PROMPT_COMMAND+='; echo -ne "\033k${HOSTNAME%%.*}:${PWD##*/}\033\\"'
   ;;
 esac
+export -n PROMPT_COMMAND
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
