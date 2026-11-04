@@ -199,7 +199,6 @@ cnoremap <C-o> <C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\n', '\\n', 'g')<C
 
 " Indent behaviour
 set autoindent
-set smartindent
 set expandtab
 set shiftwidth=4
 set softtabstop=4
