@@ -93,8 +93,8 @@ let NERDTreeRespectWildIgnore=1
 nnoremap <Leader>m :GFiles<CR>
 nnoremap <Leader>l :Files<CR>
 nnoremap <Leader>h :History<CR>
-noremap <S-Up>      :cprevious<CR>
-noremap <S-Down>    :cnext<CR>
+nnoremap <S-Up>      :cprevious<CR>
+nnoremap <S-Down>    :cnext<CR>
 function ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
         copen
@@ -115,12 +115,12 @@ nnoremap <Leader>o :call phpactor#ContextMenu()<CR>
 " Invoke the navigation menu
 nnoremap <Leader>p :call phpactor#GotoDefinition()<CR>
 
-noremap <S-s>       :update<CR>
-noremap <S-w>       :confirm bdelete<CR>
-noremap <S-q>       :confirm quitall<CR>
+nnoremap <S-s>       :update<CR>
+nnoremap <S-w>       :confirm bdelete<CR>
+nnoremap <S-q>       :confirm quitall<CR>
 
-noremap <S-Right>   :bnext<CR>
-noremap <S-Left>    :bprevious<CR>
+nnoremap <S-Right>   :bnext<CR>
+nnoremap <S-Left>    :bprevious<CR>
 
 " indent without killing the selection in VISUAL mode
 vnoremap < <gv
