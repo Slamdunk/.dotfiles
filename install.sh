@@ -26,3 +26,16 @@ for file in \
     mkdir -p "$(dirname "$destination")"
     cp -av "$newfile" "$destination"
 done
+
+# Migration notices
+if [ -f ~/.gitignore ] && [ -z "$(git config --global core.excludesfile 2> /dev/null)" ]; then
+    echo
+    echo "NOTICE: git now uses ~/.config/git/ignore as global ignore file: ~/.gitignore can be removed"
+fi
+if command -v git &> /dev/null && [ -z "$(git config --global --includes user.email)" ]; then
+    echo
+    echo "NOTICE: no git identity set; add it to the untracked ~/.gitconfig.local:"
+    echo "    git config --file ~/.gitconfig.local user.name  \"Your Name\""
+    echo "    git config --file ~/.gitconfig.local user.email \"you@example.com\""
+fi
+
