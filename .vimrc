@@ -5,10 +5,16 @@ augroup vimrc
     autocmd!
 augroup END
 
-" Auto install VIM-PLUG if not present
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" Auto install VIM-PLUG if not present (curl, or wget as fallback)
+let s:plug_file = expand('~/.vim/autoload/plug.vim')
+if empty(glob(s:plug_file))
+    let s:plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    if executable('curl')
+        silent execute '!curl -fLo ' . shellescape(s:plug_file) . ' --create-dirs ' . s:plug_url
+    elseif executable('wget')
+        call mkdir(fnamemodify(s:plug_file, ':h'), 'p')
+        silent execute '!wget -qO ' . shellescape(s:plug_file) . ' ' . s:plug_url
+    endif
 endif
 
 let dev_with_composer = executable('composer') && $USER != 'root'
@@ -43,6 +49,11 @@ call plug#begin('~/.vim/plugged')
         let g:vdebug_options = {'port' : 9003}
     endif
 call plug#end()
+
+" Install missing plugins on startup
+autocmd vimrc VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \ | PlugInstall --sync | source $MYVIMRC
+    \ | endif
 
 let mapleader = ","
 
@@ -168,12 +179,12 @@ set showcmd
 set wildmenu
 set wildmode=longest:full,full
 
-if !isdirectory($HOME.'/.vim/undo')
-    call mkdir($HOME.'/.vim/undo')
-endif
 " VIM behaviour
 set backspace=indent,eol,start
 set nopaste
+if !isdirectory($HOME.'/.vim/undo')
+    call mkdir($HOME.'/.vim/undo', 'p', 0700)
+endif
 set undofile
 set undodir=~/.vim/undo
 
