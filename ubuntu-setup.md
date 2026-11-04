@@ -20,9 +20,11 @@ sudo ufw allow from 172.18.0.0/16 proto tcp to any port 9003
 
 ## Sysctl
 
+Da Ubuntu 26.04 e Debian 13 il file `/etc/sysctl.conf` non viene più letto: usare un file in `/etc/sysctl.d/`.
+
 ```console
-echo "vm.swappiness = 10" | sudo tee --append /etc/sysctl.conf
-echo "fs.inotify.max_user_watches = 524288" | sudo tee --append /etc/sysctl.conf
+printf 'vm.swappiness = 10\nfs.inotify.max_user_watches = 524288\n' | sudo tee /etc/sysctl.d/99-local.conf
+sudo sysctl --system
 ```
 
 ## Software di base
