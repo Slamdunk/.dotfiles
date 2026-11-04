@@ -138,13 +138,9 @@ export EDITOR=vim
 if [ -x /usr/bin/dircolors ]; then
     eval "$(dircolors --sh)"
     alias ls='ls --color=auto'
-
-    alias grep="grep --color=auto"
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 
-alias grep="grep --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn --exclude-dir=.work"
+alias grep="grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn --exclude-dir=.work"
 
 # some more ls aliases
 alias ll='ls -alhF'
