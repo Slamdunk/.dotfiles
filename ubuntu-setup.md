@@ -5,7 +5,7 @@ In caso si volesse fare dual boot con Windows, bisogna accertarsi che Windows sa
 Seguire il paragrafo “Option Two: Make Windows Use UTC Time” nel link:
 https://www.howtogeek.com/323390/how-to-fix-windows-and-linux-showing-different-times-when-dual-booting/
 
-# OS di riferimento: Ubuntu 20.04
+# OS di riferimento: Ubuntu 26.04 LTS (compatibile con Debian 13)
 
 ## Firewall
 
@@ -45,8 +45,9 @@ sudo apt update \
     vim vim-gtk3 \
     git \
     curl \
-    tmux xclip \
-    ripgrep \
+    bash-completion \
+    tmux xclip wl-clipboard \
+    fzf ripgrep \
     geany geany-plugin-lineoperations geany-plugin-prettyprinter geany-plugin-addons \
     htop iotop \
     make \
@@ -55,6 +56,8 @@ sudo apt update \
     libnss3-tools network-manager-openvpn-gnome \
 && sudo usermod -aG docker $USER
 ```
+
+Il gruppo `docker` è attivo solo dopo logout e nuovo login.
 
 ## LUKS unlocked with TPM
 
