@@ -19,6 +19,7 @@ endif
 
 let dev_with_composer = executable('composer') && $USER != 'root'
 
+" plug#end() also enables 'filetype plugin indent on' and 'syntax enable'
 call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --xdg --no-update-rc' }
     Plug 'junegunn/fzf.vim'
@@ -170,7 +171,6 @@ set ttimeoutlen=50
 
 " Appearance
 set background=dark
-syntax on
 set number
 set relativenumber
 set scrolloff=5
@@ -181,7 +181,6 @@ set wildmode=longest:full,full
 
 " VIM behaviour
 set backspace=indent,eol,start
-set nopaste
 if !isdirectory($HOME.'/.vim/undo')
     call mkdir($HOME.'/.vim/undo', 'p', 0700)
 endif
@@ -208,5 +207,3 @@ set tabstop=4
 set shiftround
 set listchars=tab:>>,trail:-,extends:>,precedes:<,nbsp:+
 set list
-
-filetype plugin indent on
