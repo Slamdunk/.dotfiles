@@ -193,4 +193,7 @@ genpasswd() {
     tr -dc ABCDEFGHKMNPQRSTUVWXYZabcdefghkmnpqrstuvwxyz23456789_ < /dev/urandom | head -c ${l} | xargs
 }
 
-export SSH_AUTH_SOCK=/run/user/1000/gcr/ssh
+# GNOME Keyring (gcr) SSH agent, only when no agent is already set (e.g. SSH agent forwarding)
+if [ -z "$SSH_AUTH_SOCK" ] && [ -S "${XDG_RUNTIME_DIR:-/run/user/$EUID}/gcr/ssh" ]; then
+    export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$EUID}/gcr/ssh"
+fi
