@@ -184,7 +184,6 @@ if fzf_init=$(fzf --bash 2> /dev/null); then
     eval "$fzf_init"
 elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
     . /usr/share/doc/fzf/examples/key-bindings.bash
-    . /usr/share/doc/fzf/examples/completion.bash
 fi
 unset fzf_init
 
